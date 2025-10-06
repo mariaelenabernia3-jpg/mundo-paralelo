@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>El Glitch Existencial - Etapa 1</title>
+    <link rel="stylesheet" href="game1.css">
+</head>
+<body>
+    <!-- NUEVO: OVERLAY DE BLOQUEO PARA MÓVILES -->
+    <div id="enforce-view-overlay">
+        <div class="enforce-view-content">
+            <h2>Acción Requerida</h2>
+            <p>1. Activa el "Modo de escritorio" en tu navegador.</p>
+            <p>2. Pon tu teléfono en posición horizontal.</p>
+            <p>(El juego continuará automáticamente)</p>
+        </div>
+    </div>
+
+    <!-- PANTALLA DE ROTACIÓN PARA MÓVILES (AHORA SECUNDARIA) -->
+    <div id="rotate-screen">
+        <img src="rotate.png" alt="Rotate Device">
+        <p>Por favor, pon tu teléfono en horizontal o usa una computadora.</p>
+    </div>
+
+    <canvas id="platformerCanvas"></canvas>
+
+    <!-- Controles para móvil -->
+    <div id="controls">
+        <div class="control-btn" id="btn-left">◀</div>
+        <div class="control-btn" id="btn-right">▶</div>
+        <div class="control-btn" id="btn-jump">▲</div>
+    </div>
+
+    <script src="game1.js"></script>
+
+    <!-- NUEVO: SCRIPT DE VERIFICACIÓN DE VISTA -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('enforce-view-overlay');
+            const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
+            function checkMobileView() {
+                if (!isMobile) return; // Si no es móvil, no hace nada
+
+                // Condiciones: estar en horizontal Y tener un ancho de viewport grande (simulando "sitio de escritorio")
+                const isLandscape = window.innerWidth > window.innerHeight;
+                const isDesktopMode = window.innerWidth >= 980; // Un valor común para el modo escritorio en móviles
+
+                if (isLandscape && isDesktopMode) {
+                    overlay.classList.remove('visible');
+                } else {
+                    overlay.classList.add('visible');
+                }
+            }
+
+            // Verificar al cargar y cada vez que la ventana cambie de tamaño
+            checkMobileView();
+            window.addEventListener('resize', checkMobileView);
+        });
+    </script>
+</body>
+</html>

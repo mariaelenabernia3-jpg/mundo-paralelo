@@ -1,0 +1,123 @@
+/* --- ESTILOS GENERALES Y DE PANTALLAS DE INTRO --- */
+body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; text-align: center; background: #000; transition: background 0.5s ease; }
+.hidden { display: none !important; }
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 200; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+
+/* --- NUEVO: ESTILOS PARA EL OVERLAY DE BLOQUEO --- */
+#enforce-view-overlay {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    color: #fff;
+    z-index: 10000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'VT323', monospace, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+#enforce-view-overlay.visible {
+    display: flex; /* Se muestra cuando tiene la clase 'visible' */
+}
+.enforce-view-content {
+    border: 2px solid #ff00ff;
+    padding: 30px;
+    box-shadow: 0 0 20px #ff00ff;
+}
+.enforce-view-content h2 {
+    color: #ff00ff;
+    font-size: 1.8rem;
+}
+.enforce-view-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* --- INTRODUCCIÓN (CON FONDO NEGRO SÓLIDO) --- */
+.intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-family: 'VT323', monospace; }
+#language-selector h2 { font-size: 2rem; } #language-selector button { font-family: 'VT323', monospace; background: none; border: 1px solid #fff; color: #fff; padding: 15px 30px; font-size: 1.5rem; margin: 10px; cursor: pointer; }
+#language-selector button:hover { background: #fff; color: #000; }
+#lore-screen { cursor: pointer; } #lore-text { font-size: 2rem; max-width: 80%; } #continue-prompt { font-size: 1rem; color: #888; margin-top: 50px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* --- PRELOADER (CON FONDO NEGRO SÓLIDO) --- */
+#preloader #boot-sequence { width: 90%; max-width: 600px; text-align: left; color: #00ff00; font-size: 1.5rem; }
+.cursor { display: inline-block; background-color: #00ff00; width: 0.8rem; height: 1.6rem; animation: blink 1s step-end infinite; }
+@keyframes blink { from, to { background-color: transparent; } 50% { background-color: #00ff00; } }
+
+/* [ El resto del CSS sigue igual... ] */
+/* --- MENÚ PRINCIPAL --- */
+#main-menu { display: none; width: 90%; z-index: 10; }
+.glitch-title { font-family: 'Press Start 2P', cursive; font-size: 3.5rem; color: #fff; position: relative; text-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff, 0 0 20px #00bfff, 0 0 40px #ff00ff, 0 0 80px #ff00ff; animation: title-glitch 1.5s infinite linear alternate-reverse; word-wrap: break-word; }
+@keyframes title-glitch { 0%{transform:translate(0)} 25%{transform:translate(3px, -3px)} 50%{transform:translate(-3px, 3px)} 75%{transform:translate(3px, 3px)} 100%{transform:translate(-3px, -3px)} }
+#first-time-dialogue { position: fixed; bottom: 20px; left: 20px; z-index: 500; background: rgba(0,0,0,0.7); border: 1px solid #00ff00; padding: 15px; color: #00ff00; font-family: 'VT323', monospace; font-size: 1.2rem; max-width: 300px; text-align: left; }
+
+/* --- GLITCH 2.0 --- */
+.glitch-container { position: relative; } .glitch-container.is-glitching { animation: main-glitch-anim 0.5s linear forwards; }
+.glitch-container.is-glitching::before, .glitch-container.is-glitching::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: inherit; background-color: transparent; }
+.glitch-container.is-glitching::before { left: 2px; animation: glitch-anim-1 0.5s linear; background: rgba(255,0,0,0.3); mix-blend-mode: screen; }
+.glitch-container.is-glitching::after { left: -2px; animation: glitch-anim-2 0.5s linear; background: rgba(0,255,255,0.3); mix-blend-mode: screen; }
+@keyframes main-glitch-anim { 0%{transform:skewX(0deg)} 20%{transform:skewX(15deg)} 40%{transform:skewX(-15deg)} 60%{transform:skewX(10deg)} 80%{transform:skewX(-5deg)} 100%{transform:skewX(0deg)} }
+@keyframes glitch-anim-1 { 0%{clip-path:inset(10% 0 80% 0)} 20%{clip-path:inset(50% 0 25% 0)} 40%{clip-path:inset(85% 0 5% 0)} 60%{clip-path:inset(30% 0 60% 0)} 80%{clip-path:inset(5% 0 90% 0)} 100%{clip-path:inset(70% 0 15% 0)} }
+@keyframes glitch-anim-2 { 0%{clip-path:inset(80% 0 10% 0)} 20%{clip-path:inset(25% 0 50% 0)} 40%{clip-path:inset(5% 0 85% 0)} 60%{clip-path:inset(60% 0 30% 0)} 80%{clip-path:inset(90% 0 5% 0)} 100%{clip-path:inset(15% 0 70% 0)} }
+
+/* --- Estructura de Overlays --- */
+.overlay-content { padding: 40px; text-align: center; max-width: 500px; width: 90%; } .overlay-content h2 { font-size: 2rem; margin: 0 0 30px 0; }
+.overlay-content button { padding: 10px 20px; font-size: 1rem; cursor: pointer; background: none; border: none; color: inherit; font-family: inherit; }
+.dialogue-bubble { margin-bottom: 20px; padding: 10px; font-style: italic; font-size: 1.1rem; border-radius: 5px; max-width: 90%; margin-left: auto; margin-right: auto; }
+.save-slot-container { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; width: 100%; }
+.save-slot { padding: 20px 40px; cursor: pointer; } .save-slot .slot-status { font-size: 0.8rem; opacity: 0.7; }
+.options-group { margin: 25px 0; } .options-group label { display: block; margin-bottom: 10px; }
+.language-buttons button { font-size: 1rem; padding: 8px 15px; } input[type="range"] { width: 80%; }
+
+/* --- TEMAS --- */
+.theme-8bit { background-image: url('fondo-8-bit.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+.theme-8bit button { font-family: 'Press Start 2P', cursive; background-color: rgba(34, 34, 34, 0.7); border: 2px solid #FFF; color: #FFF; padding: 15px 30px; font-size: 1.2rem; margin: 10px; cursor: pointer; text-transform: uppercase; text-shadow: 2px 2px #000; }
+.theme-8bit .overlay { background-color: rgba(0,0,0,0.9); border: 4px solid #FFF; color: #FFF; }
+.theme-8bit .dialogue-bubble { background-color: #333; }
+.theme-8bit .save-slot { border: 2px solid #FFF; } .theme-8bit .save-slot.used { background-color: #555; }
+
+.theme-cyberpunk { background-image: url('fondo-cyberpunk.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+.theme-cyberpunk button { font-family: 'VT323', monospace; background: rgba(0,0,0,0.2); border: 1px solid #0F0; color: #0F0; padding: 15px 30px; font-size: 1.8rem; margin: 10px; cursor: pointer; text-transform: uppercase; text-shadow: 0 0 5px #000; }
+.theme-cyberpunk .overlay { background-color: rgba(13,13,13,0.8); backdrop-filter: blur(5px); color: #0F0; border: 1px solid #0F0;}
+.theme-cyberpunk .dialogue-bubble { background-color: rgba(0, 255, 0, 0.1); border-left: 2px solid #0F0; }
+.theme-cyberpunk .save-slot { border: 1px solid #0F0; } .theme-cyberpunk .save-slot.used { background-color: rgba(0, 255, 0, 0.15); }
+
+.theme-medieval { background-image: url('fondo-medieval.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+.theme-medieval button { font-family: 'MedievalSharp', cursive; background: #e6dcc9; border-style: solid; border-width: 24px; border-image: url('borde-medieval.png') 24 stretch; color: #5a3d33; padding: 10px 20px; font-size: 1.5rem; margin: 10px; cursor: pointer; text-transform: capitalize; transition: transform 0.2s; text-shadow: 1px 1px 2px #000; }
+.theme-medieval .overlay { background-color: rgba(245, 240, 225, 0.95); border-style: solid; border-width: 32px; border-image: url('borde-medieval.png') 32 stretch; color: #5a3d33; }
+.theme-medieval .dialogue-bubble { background-color: #d8c8a8; }
+.theme-medieval .save-slot { border: 2px solid #5a3d33; } .theme-medieval .save-slot.used { background-color: #c9b999; }
+
+.theme-modern { background-image: url('fondo-moderno.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+.theme-modern button { font-family: Arial, sans-serif; background-color: #333; border: none; border-radius: 50px; color: #FFF; padding: 20px 40px; font-size: 1rem; margin: 10px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: transform 0.2s ease, box-shadow 0.2s ease; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+.theme-modern .overlay { background-color: rgba(255,255,255,0.7); backdrop-filter: blur(10px); color: #333; border-radius: 10px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); }
+.theme-modern .dialogue-bubble { background-color: #eee; }
+.theme-modern .save-slot { background: #eee; border-radius: 5px; } .theme-modern .save-slot.used { background: #ddd; }
+
+/* --- PANTALLA DE CARGA --- */
+#loading-screen { background-color: #000; flex-direction: column; justify-content: center; align-items: center; }
+.loader { width: 60px; height: 60px; border: 5px solid #0F0; border-radius: 50%; border-top-color: #ff00ff; animation: spin 1.5s linear infinite, flicker 0.8s ease-in-out infinite alternate; box-shadow: 0 0 15px #0F0, 0 0 30px #ff00ff; }
+#loading-dialogue { position: absolute; bottom: 40px; color: #FFF; font-family: 'VT323', monospace; font-size: 1.5rem; text-shadow: 0 0 5px #FFF; animation: pulse 2.5s infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes flicker { from { box-shadow: 0 0 15px #0F0, 0 0 30px #ff00ff; border-top-color: #ff00ff; } to { box-shadow: 0 0 25px #00bfff, 0 0 45px #0F0; border-top-color: #00bfff; } }
+
+/* --- PANTALLA DE ROTACIÓN --- */
+#rotate-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; color: #fff; z-index: 9999; flex-direction: column; justify-content: center; align-items: center; font-family: 'VT323', monospace; font-size: 1.5rem; }
+#rotate-screen img { width: 80px; height: 80px; margin-bottom: 20px; animation: pulse 2s infinite; }
+@media (max-width: 850px) and (orientation: portrait) { #rotate-screen { display: flex; } }
+
+#version-info { position: fixed; bottom: 10px; right: 15px; font-size: 0.7rem; color: rgba(128, 128, 128, 0.7); pointer-events: none; z-index: 100; }
+
+/* --- MEDIA QUERIES PARA MÓVILES --- */
+@media (max-height: 500px) and (orientation: landscape) {
+    .glitch-title { font-size: 2.5rem; margin-bottom: 10px; }
+    .menu-options button { font-size: 1rem; padding: 10px 20px; margin: 5px !important; }
+    .overlay-content { padding: 20px; }
+}
+@media (max-width: 768px) { .glitch-title { font-size: 2.2rem; } button { width: 80%; margin: 15px auto !important; } #first-time-dialogue, #lore-text, #language-selector h2 { font-size: 1.2rem; } }
